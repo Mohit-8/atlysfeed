@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import PostsFeed from "features/PostsFeed";
+import { ROUTES } from "./constants/routes";
+import LoginPage from "features/Login";
+import { useAuth } from "context/AuthContext";
+import Modal from "components/Modal";
+import LoginBox from "features/Login/LoginBox";
 
 function App() {
+  const { showModal, closeLoginModal } = useAuth();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter basename="/">
+      <div className="App">
+        <Routes>
+          <Route path={ROUTES.POSTS} element={<PostsFeed />} />
+          <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+          <Route path="*" element={<Navigate to={ROUTES.LOGIN} />} />
+        </Routes>
+        {showModal && (
+          <Modal>
+            <LoginBox onClose={closeLoginModal} showClose />
+          </Modal>
+        )}
+      </div>
+    </BrowserRouter>
   );
 }
 
