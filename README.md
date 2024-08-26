@@ -1,6 +1,6 @@
 # Atlys Feed a
 
-Link -> https://atlysfeed.vercel.app/posts
+Link -> https://atlysfeed.vercel.app
 
 ## Working
 1. Home page - "/"
